@@ -61,3 +61,9 @@ func (c *ComputeClient) Services() *ServicesClient {
 func (c *ComputeClient) Snapshots() *SnapshotsClient {
 	return &SnapshotsClient{c.Client}
 }
+
+// Volumes returns a Compute client used for accessing functions pertaining to
+// Volumes functionality in the Triton API.
+func (c *ComputeClient) Volumes() *VolumesClient {
+	return &VolumesClient{c.Client}
+}

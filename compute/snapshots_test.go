@@ -14,8 +14,6 @@ import (
 	"github.com/joyent/triton-go/testutils"
 )
 
-const accountUrl = "testing"
-
 var (
 	listSnapshotErrorType             = errors.New("Error executing List request:")
 	getSnapshotErrorType              = errors.New("Error executing Get request:")
@@ -24,16 +22,8 @@ var (
 	startMachineFromSnapshotErrorType = errors.New("Error executing StartMachine request:")
 )
 
-func MockIdentityClient() *compute.ComputeClient {
-	return &compute.ComputeClient{
-		Client: testutils.NewMockClient(testutils.MockClientInput{
-			AccountName: accountUrl,
-		}),
-	}
-}
-
 func TestListSnapshots(t *testing.T) {
-	computeClient := MockIdentityClient()
+	computeClient := MockComputeClient()
 
 	do := func(ctx context.Context, cc *compute.ComputeClient) ([]*compute.Snapshot, error) {
 		defer testutils.DeactivateClient()
@@ -104,7 +94,7 @@ func TestListSnapshots(t *testing.T) {
 }
 
 func TestGetSnapshot(t *testing.T) {
-	computeClient := MockIdentityClient()
+	computeClient := MockComputeClient()
 
 	do := func(ctx context.Context, cc *compute.ComputeClient) (*compute.Snapshot, error) {
 		defer testutils.DeactivateClient()
@@ -176,7 +166,7 @@ func TestGetSnapshot(t *testing.T) {
 }
 
 func TestDeleteSnapshot(t *testing.T) {
-	computeClient := MockIdentityClient()
+	computeClient := MockComputeClient()
 
 	do := func(ctx context.Context, cc *compute.ComputeClient) error {
 		defer testutils.DeactivateClient()
@@ -211,7 +201,7 @@ func TestDeleteSnapshot(t *testing.T) {
 }
 
 func TestStartMachineFromSnapshot(t *testing.T) {
-	computeClient := MockIdentityClient()
+	computeClient := MockComputeClient()
 
 	do := func(ctx context.Context, cc *compute.ComputeClient) error {
 		defer testutils.DeactivateClient()
@@ -246,7 +236,7 @@ func TestStartMachineFromSnapshot(t *testing.T) {
 }
 
 func TestCreateSnapshot(t *testing.T) {
-	computeClient := MockIdentityClient()
+	computeClient := MockComputeClient()
 
 	do := func(ctx context.Context, cc *compute.ComputeClient) (*compute.Snapshot, error) {
 		defer testutils.DeactivateClient()
